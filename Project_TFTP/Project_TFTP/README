@@ -1,0 +1,229 @@
+# 🛰️ TFTP Client-Server Project (UDP-based)
+
+This project implements a **Trivial File Transfer Protocol (TFTP)** using **UDP sockets** in C. It supports file upload (`PUT`), download (`GET`), and file mode switching (**Normal**, **Octet**, and **NetASCII**), all via a text-based menu-driven interface.
+
+---
+
+## 📁 Project Structure
+
+```
+
+TFTP/
+├── tftp\_client.c       # Client main logic
+├── tftp\_client.h       # Client-side function declarations
+├── tftp\_server.c       # Server logic to handle file requests
+├── tftp.c              # Shared file transfer logic
+├── tftp.h              # Common definitions and packet structure
+├── Test1.txt           # Sample file to test PUT/GET
+├── Test2.txt          # Another test file
+├── tftp.txt            # Duplicate test file
+├── Makefile            # Build system for compiling client and server
+├── README.md           # Project documentation
+└── tftp\_root/          # Server-side storage directory (created manually)
+
+````
+
+---
+
+## 🛠️ Compilation
+
+### 🔧 Building the Project
+
+From the root folder of the project, run:
+
+```bash
+make
+````
+
+This builds two executables:
+
+* `tftp_client`
+* `tftp_server`
+
+To clean all compiled files:
+
+```bash
+make clean
+```
+
+---
+
+## 🚀 How to Run
+
+### 1️⃣ Start the Server
+
+Open a terminal and run:
+
+```bash
+./tftp_server
+```
+
+Expected output:
+
+```
+TFTP Server listening on port 5000...
+```
+
+The server saves uploaded files into the `tftp_root/` directory.
+
+---
+
+### 2️⃣ Run the Client
+
+In another terminal:
+
+```bash
+./tftp_client
+```
+
+Client menu:
+
+```
+1. Connect
+2. Put
+3. Get
+4. Mode
+5. Exit
+```
+### 3️⃣ To exit the server
+
+Just type `exit` to terminate the server
+
+In Running Server terminal:
+
+```bash
+TFTP Server listening on port 5000...
+exit
+```
+
+---
+
+## 🔌 Using the Client Menu
+
+### Option 1: Connect
+
+* Enter IP: `127.0.0.1`
+* Enter Port: `5000`
+
+Example:
+
+```
+Enter IP address: 127.0.0.1
+Enter PORT number: 5000
+INFO: Connection successful
+```
+
+---
+
+### Option 2: Put (Upload a File)
+
+Upload a local file (e.g., `Test1.txt`) to the server:
+
+```
+Enter file name you want to upload or put to server: Test1.txt
+INFO: Uploading file to server
+INFO: Final block sent with block number 1 | Bytes: 28
+ACK: Acknowledgment for block number 1
+INFO: File uploaded successfully
+```
+
+After this, the file will be in:
+
+```
+./tftp_root/Test1.txt
+```
+
+---
+
+### Option 3: Get (Download a File)
+
+Download a file from the server:
+
+```
+Enter file name you want to download or get from server: Test1.txt
+INFO: Downloading file from server
+INFO: Data received with block number 1 | Bytes: 28
+INFO: File downloaded successfully
+```
+
+The downloaded file appears in the current directory where `tftp_client` was executed.
+
+---
+
+### Option 4: Mode (Change Transfer Mode)
+
+Select:
+
+```
+1 → Normal Mode
+2 → Octet Mode
+3 → NetASCII Mode
+```
+
+This affects the way file data is encoded during transfer.
+
+---
+
+## 📦 File Storage Behavior
+
+| Action         | Location                              |
+| -------------- | ------------------------------------- |
+| Upload (PUT)   | Saved in `./tftp_root/`               |
+| Download (GET) | Saved in current client folder (`./`) |
+
+---
+
+## 💡 Sample Terminal Output
+
+### Server (Terminal 1)
+
+```
+TFTP Server listening on port 5000...
+INFO: Write request received from client
+INFO: File does not exist creating new file
+INFO: ACK sent to client
+INFO: Data received with block number 1 | Bytes: 28
+INFO: Final short block received. File transfer complete.
+```
+
+### Client (Terminal 2)
+
+```
+1. Connect
+2. Put
+3. Get
+4. Mode
+5. Exit
+Enter choice: 1
+Enter IP address: 127.0.0.1
+Enter PORT number: 5000
+INFO: Connection successful
+
+Enter choice: 2
+Enter file name you want to upload or put to server: Test1.txt
+INFO: File uploaded successfully
+
+Enter choice: 3
+Enter file name you want to download or get from server: Test1.txt
+INFO: File downloaded successfully
+```
+
+---
+
+## ✅ Requirements
+
+* GCC or Clang (Linux/macOS)
+* POSIX-compatible system
+* No third-party libraries required
+
+---
+
+## 🧑‍💻 Author
+
+* Developed as part of Emertxe-style socket programming project
+* Enhanced and documented by Adyasha Nanda
+---
+
+## 🪪 License
+
+This project is released under the **Emertxe License** for learning and educational use.

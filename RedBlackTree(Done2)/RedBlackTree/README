@@ -1,0 +1,238 @@
+# Red-Black Tree Project
+
+## Project Title
+**Red-Black Tree Implementation in C**
+
+## Author
+**Adyasha Nanda**
+
+## Institute
+**EMERTXE Institute of Technology**
+
+---
+
+## Table of Contents
+- [Introduction](#introduction)
+- [Red-Black Tree Basics](#red-black-tree-basics)
+- [Project Structure](#project-structure)
+- [Operations and Functionality](#operations-and-functionality)
+  - [1. Create Tree (Insertion)](#1-create-tree-insertion)
+  - [2. Display Tree](#2-display-tree)
+  - [3. Search Node](#3-search-node)
+  - [4. Find Maximum](#4-find-maximum)
+  - [5. Find Minimum](#5-find-minimum)
+  - [6. Delete Node](#6-delete-node)
+  - [7. Delete Minimum Node](#7-delete-minimum-node)
+  - [8. Delete Maximum Node](#8-delete-maximum-node)
+- [How to Compile and Run](#how-to-compile-and-run)
+- [Notes](#notes)
+
+---
+
+## Introduction
+This project implements a fully functional **Red-Black Tree** in C. A red-black tree is a self-balancing binary search tree where each node follows specific color properties to maintain balance during insertions and deletions.
+
+This project allows users to:
+- Insert data into the tree
+- View the tree structure
+- Search for a specific node
+- Find the maximum and minimum values
+- Delete any node, including specifically the minimum and maximum
+
+It ensures tree balance is maintained through appropriate rebalancing logic after insertions and deletions.
+
+---
+
+## Red-Black Tree Basics
+Each node in a Red-Black Tree has:
+- A color: RED or BLACK
+- A data value
+- Pointers to left and right children
+- A pointer to the parent node
+
+### Properties:
+1. Root is always BLACK
+2. Red nodes can't have red children
+3. Every path from root to NULL has the same number of black nodes
+
+These properties ensure **log(n)** time complexity for insert, delete, and search.
+
+---
+
+## Project Structure
+
+```
+.
+├── main.c              # Driver program
+├── insert.c            # Insert logic with balancing
+├── delete.c            # Delete logic with balancing
+├── delete_min.c        # Deletes the minimum node
+├── delete_max.c        # Deletes the maximum node
+├── find_min.c          # Finds the minimum value
+├── find_max.c          # Finds the maximum value
+├── search.c            # Search functionality
+├── rbt.h               # Header file with types and prototypes
+├── Makefile            # Automates compilation
+└── README.md           # Project documentation
+```
+
+---
+
+## Operations and Functionality
+
+### 1. Create Tree (Insertion)
+**Function:** `int insert(tree_t **root, data_t item);`
+
+#### Pseudocode:
+```
+Create new node (always red)
+Find the correct position in BST
+Insert node and update parent
+Fix violations using recoloring and rotations
+```
+
+#### Explanation:
+Every new node is inserted like in a binary search tree. Then, the `fix_insertion()` function corrects any color violations to maintain red-black properties.
+
+---
+
+### 2. Display Tree
+**Function:** `void print_tree(tree_t *root);`
+
+#### Pseudocode:
+```
+In-order traversal
+Print (data)--(color->value)
+```
+
+#### Explanation:
+Prints the current state of the tree with node data and color. Used to visualize balance before and after insertions/deletions.
+
+---
+
+### 3. Search Node
+**Function:** `tree_t* search(tree_t *root, data_t item);`
+
+#### Pseudocode:
+```
+If root is null or root->data == item, return root
+If item < root->data, search left subtree
+Else, search right subtree
+```
+
+#### Explanation:
+Standard BST search that returns the node pointer if found, or NULL if not.
+
+---
+
+### 4. Find Maximum
+**Function:** `int find_maximum(tree_t **root, data_t *max);`
+
+#### Pseudocode:
+```
+While node->right != NULL
+  Move to right
+Return node->data
+```
+
+#### Explanation:
+The maximum value is found by going as far right as possible in the tree.
+
+---
+
+### 5. Find Minimum
+**Function:** `int find_minimum(tree_t **root, data_t *min);`
+
+#### Pseudocode:
+```
+While node->left != NULL
+  Move to left
+Return node->data
+```
+
+#### Explanation:
+The minimum value is found by going as far left as possible in the tree.
+
+---
+
+### 6. Delete Node
+**Function:** `int delete(tree_t **root, data_t item);`
+
+#### Pseudocode:
+```
+Find node with matching value
+Remove and replace using in-order successor if needed
+Fix tree using fix_deletion() to maintain properties
+```
+
+#### Explanation:
+This function handles deleting any node. It also calls `fix_deletion()` if a black node is removed to re-balance the tree.
+
+---
+
+### 7. Delete Minimum Node
+**Function:** `int delete_minimum(tree_t **root);`
+
+#### Pseudocode:
+```
+Find minimum node using tree_minimum()
+Call delete() on it
+```
+
+#### Explanation:
+Deletes the left-most (smallest) node in the tree.
+
+---
+
+### 8. Delete Maximum Node
+**Function:** `int delete_maximum(tree_t **root);`
+
+#### Pseudocode:
+```
+Find maximum node using tree_maximum()
+Call delete() on it
+```
+
+#### Explanation:
+Deletes the right-most (largest) node in the tree.
+
+---
+
+## How to Compile and Run
+This project comes with a **Makefile** for easy compilation.
+
+### Step-by-step:
+1. **Open terminal** in the project directory
+2. **Compile:**
+   ```bash
+   make
+   ```
+   This compiles all `.c` files and creates an executable `rbt.exe`
+
+3. **Run:**
+   ```bash
+   ./rbt.exe
+   ```
+
+4. **Interact using menu:**
+   You will see a menu to perform operations like insert, delete, search, etc.
+
+### To Clean compiled files:
+```bash
+make clean
+```
+
+---
+
+## Notes
+- Ensure all files are in the same folder
+- Use only valid integer input
+- Red-black balancing ensures efficient operations, even with large data sets
+- The tree always remains balanced
+
+---
+
+Happy Coding!
+
+> Created by Adyasha Nanda @ EMERTXE
+
